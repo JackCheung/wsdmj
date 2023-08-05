@@ -1,15 +1,3 @@
-<!doctype html>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-<meta name="referrer" content="always">
-<meta name="renderer" content="webkit">
-<title>我是大卖家</title>
-<script src="./images/jquery.min.js"></script>
-<link href="./images/style.css" rel="stylesheet" type="text/css">
-<script>
 $(function(){
 	var sobj = {
 		"type": {
@@ -201,9 +189,3 @@ function Gb2312(str) {
 	}
 	return ret;
 }
-</script>
-</head>
-<body>
-<div class="s_block"></div>
-</body>
-</html>
