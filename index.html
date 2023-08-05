@@ -1,52 +1,173 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>我是大卖家</title>
-		<script charset="UTF-8" src="/tj.js"></script>
-		<style>
-			body {
-				font: 16px arial, 'Microsoft Yahei', 'Hiragino Sans GB', sans-serif;
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="referrer" content="always">
+<meta name="renderer" content="webkit">
+<title>搜索大全</title>
+<script src="./images/jquery.min.js"></script>
+<link href="./images/style.css" rel="stylesheet" type="text/css">
+<script>
+$(function(){
+	var sobj = {
+		"type": {
+			"网页": {
+				"百度": "https://www.baidu.com/s?wd=1111111111&",
+				"雅虎": "https://search.yahoo.com/search?p=",
+				"谷歌": "https://www.google.com/search?",
+				"搜狗": "https://www.sogou.com/",
+				"腾讯": "https://www.yandex.com/search/?text=",
+				" 360": "https://www.so.com/s?ie=utf-8&fr=none&src=360sou_newhome&q=1111111111",
+				"必应": "https://www.bing.com/"
+			},
+			"资讯": {
+				"百度": "https://www.baidu.com/s?rtt=1&bsst=1&cl=2&tn=news&ie=utf-8&word=1111111111",
+				"雅虎": "",
+				"搜狗": "",
+				"腾讯": "",
+				" 360": "https://news.so.com/ns?q=1111111111&src=tab_www",
+				"必应": ""
+			},
+			"视频": {
+				"百度": "https://www.baidu.com/sf/vsearch?pd=video&tn=vsearch&lid=b9b4e83900006094&ie=utf-8&wd=1111111111&rsv_spt=13&rsv_bp=1&f=8",
+				"搜狗": "",
+				"腾讯": "",
+				" 360": "https://video.360kan.com/v?q=1111111111&src=tab_wenda",
+				"必应": ""
+			},
+			"图片": {
+				"百度": "https://image.baidu.com/search/index?tn=baiduimage&ps=1&ct=201326592&lm=-1&cl=2&nc=1&ie=utf-8&word=1111111111&ie=utf-8&ie=utf-8",
+				"搜狗": "",
+				"腾讯": "",
+				" 360": "https://image.so.com/i?q=1111111111&src=tab_video"
+			},
+			"知道": {
+				"百度": "https://zhidao.baidu.com/search?ct=17&pn=0&tn=ikaslist&rn=10&lm=0&ie=utf-8&word=1111111111",
+				" 360": "https://wenda.so.com/search/?q=1111111111&src=tab_news"
+			},
+			"文库": {
+				"百度": "https://wenku.baidu.com/search?word=1111111111&lm=0&od=0"
+			},
+			"贴吧": {
+				"百度": "https://tieba.baidu.com/f?kw=1111111111&fr=wenku"
+			},
+			"地图": {
+				"百度": "https://map.baidu.com/search/1111111111/@12239363.89,3988196.86,12z?querytype=s&wd=1111111111&c=285&pn=0&device_ratio=1&da_src=shareurl",
+				"谷歌": "",
+				" 360": "https://ditu.so.com/?k=1111111111&src=tab_image"
+			},
+			"采购": {
+				"百度": "https://b2b.baidu.com/s?fr=wenku&q=1111111111&ie=utf-8"
 			}
-
-			h1 {
-				margin: 0;
-				color: #3a87ad;
-				font-size: 26px;
+		},
+		"image": {
+			"百度": "./images/baidu.png",
+			"雅虎": "./images/yahoo.png",
+			"谷歌": "./images/google.png",
+			"搜狗": "./images/sogou.png",
+			"腾讯": "./images/yandex.png",
+			" 360": "./images/360.png",
+			"必应": "./images/bing.png"
+		}
+	};
+	//STORAGE 模拟 COOKIE
+	function storage(n,v,e) {
+		var k,t = Math.floor(new Date()/1e3),o = JSON.parse(localStorage.csc || '{}');
+		for (k in o)if(o[k][1]&&o[k][1]<t)delete(o[k]);
+		if (v === null) {
+			delete(o[n]);
+		} else if (v === undefined) {
+			return o[n] && o[n][1]>t ? o[n][0]:0;
+		} else {
+			o[n] = [v, t + (e||3e6)];
+		}
+		localStorage.csc = JSON.stringify(o);
+		return v;
+	}
+	function sObj(){
+		if(!sobj.type[sdb.type]){
+			sdb.type = Object.keys(sobj.type)[0];
+		}
+		if(sobj.type[sdb.type][sdb.group] === undefined){
+			sdb.group = Object.keys(sobj.type[sdb.type])[0];
+		}
+	}
+	function sInit(){
+		sObj();
+		var k, h	= '';
+		h	+= '';
+		h	+= '	<table class="table" border="0" cellpadding="0" cellspacing="0" >';
+		h	+= '		<tr>';
+		h	+= '			<td>&nbsp;</td>';
+		h	+= '			<td >';
+		for(k in sobj.type){
+			h	+= '				<a class="s_type '+(sdb.type == k?'s_type_sel':'')+'">'+k+'</a>';
+		}
+		h	+= '			</td>';
+		h	+= '		</tr>';
+		h	+= '		<tr>';
+		h	+= '			<td><img class="s_image" src="'+(sobj.image[sdb.group]||'images/baidu.png')+'"></td>';
+		h	+= '			<td><input id="s_text" type="text" list="s_keys" placeholder="请输入搜索内容。。。" value="" ><input id="s_btn" type="button" value="提交"></td>';
+		h	+= '		</tr>';
+		h	+= '		<tr>';
+		h	+= '			<td></td>';
+		h	+= '			<td >';
+		for(k in sobj.type[sdb.type]){
+			if(sdb.group == k){
+				h	+= '				<a class="s_group '+(sdb.group == k?'s_group_sel':'')+'"><input type="radio" checked  ><label>'+k+'</label></a>';
+			}else{
+				h	+= '				<a class="s_group '+(sdb.group == k?'s_group_sel':'')+'"><input type="radio"  ><label>'+k+'</label></a>';
 			}
-
-			.content {
-				width: 45%;
-				margin: 0 auto;
-
+		}
+		h	+= '			</td>';
+		h	+= '		</tr>';
+		h	+= '	</table>';
+		var e = $(h);
+		$('.s_type',e).click(function(e){
+			$('.s_type_sel').removeClass('s_type_sel');
+			$(this).addClass('s_type_sel');
+			sdb.type = $(this).html();
+			storage('search',sdb)
+			sInit();
+		});
+		$('.s_group',e).click(function(e){
+			$('.s_group_sel').removeClass('s_group_sel');
+			$(this).addClass('s_group_sel');
+			sdb.group = $('label',this).html();
+			storage('search',sdb);
+			sInit();
+		});
+		$('#s_text',e).keydown(function(e) {
+			if (e.which == 13 || e.which == 10){;
+				e.preventDefault();
+				$('#s_btn').triggerHandler('click');
 			}
-
-			.content>div {
-				margin-top: 50px;
-				padding: 20px;
-				background: #d9edf7;
-				border-radius: 12px;
-			}
-
-			.content dl {
-				color: #2d6a88;
-				line-height: 40px;
-			}
-
-			.content div div {
-				padding-bottom: 20px;
-				text-align: center;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="content">
-			<div>
-				<h1>我是大卖家</h1>
-				<dl>
-					<dt>wsdmj.com</dt>
-				</dl>
-			</div>
-		</div>
-	</body>
+		})
+		$('#s_btn',e).click(function(e){
+			sdb.key = $('#s_text').val();
+			sObj();
+			var url = sobj.type[sdb.type][sdb.group];
+			url = url.replace(/1111111111/gi,encodeURIComponent(sdb.key));
+			console.log(url);
+			storage('search',sdb);
+			open(url,'_blank');
+		});
+		$('#s_text',e).val(sdb.key||'');
+		$('.s_block').html( e );
+		setInterval(function(){
+			$('#s_text').focus();
+		},0);
+	}
+	var sdb = storage('search')||{type:'网页',group:'百度',key:''};
+	sdb.key = '';
+	console.log(sdb,sobj);
+	sInit();
+});
+</script>
+</head>
+<body>
+<div class="s_block"></div>
+</body>
 </html>
