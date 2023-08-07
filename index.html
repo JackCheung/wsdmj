@@ -14,16 +14,16 @@ $(function(){
 	var sobj = {
 		"type": {
 			"网页": {
-				"百度": "https://www.baidu.com/s?wd=1111111111",
-				"谷歌": "https://www.google.com/search?q=1111111111",
-				"必应": "https://cn.bing.com/search?q=1111111111",
-				"Yandex": "https://www.yandex.com/search/?text=1111111111",
-				"搜狗": "https://www.sogou.com/web?query=1111111111",
-				" 360": "https://www.so.com/s?q=1111111111"
+				"百度": "https://www.baidu.com/s?wd=我是大卖家",
+				"谷歌": "https://www.google.com/search?q=我是大卖家",
+				"必应": "https://cn.bing.com/search?q=我是大卖家",
+				"Yandex": "https://www.yandex.com/search/?text=我是大卖家",
+				"搜狗": "https://www.sogou.com/web?query=我是大卖家",
+				" 360": "https://www.so.com/s?q=我是大卖家"
 			},
 			"图片": {
 				"百度图片": "https://image.baidu.com/search/index?tn=baiduimage&word=1111111111",
-				"谷歌图片": "https://image.baidu.com/search/index?tn=baiduimage&word=1111111111",
+				"谷歌图片": "https://www.google.com/search?q=我是大卖家&tbm=isch",
 				"必应图片": "https://cn.bing.com/images/search?q=1111111111",
 				"Yandex图片": "https://yandex.com/images/search?text=1111111111",
 				"花瓣": "https://huaban.com/search/?q=1111111111",
@@ -164,8 +164,8 @@ $(function(){
 			sdb.key = $('#s_text').val();
 			sObj();
 			var url = sobj.type[sdb.type][sdb.group];
-			url = url.replace(/1111111111gbk/gi,Gb2312(sdb.key));
-			url = url.replace(/1111111111/gi,encodeURIComponent(sdb.key));
+			url = url.replace(/我是大卖家gbk/gi,Gb2312(sdb.key));
+			url = url.replace(/我是大卖家/gi,encodeURIComponent(sdb.key));
 			console.log(url);
 			storage('search',sdb);
 			open(url,'_blank');
